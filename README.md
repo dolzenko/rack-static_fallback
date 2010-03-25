@@ -12,9 +12,13 @@ Options:
                          Along the lines of the Capistrano conventions defaults to `%r{/system/(audios|photos|videos)}`
     :fallback_static_url - URL of the production site
 
-To use with Rails add the following to your config/environments/development.rb:
+To use with Rails install as a plugin:
 
-    config.middleware.insert_after(::Rack::Lock,
+    script/plugin install git://github.com/dolzenko/rack-static_fallback.git
+
+then add the following to your `config/environments/development.rb`
+
+    config.middleware.insert_after ::Rack::Lock,
                                    ::Rack::StaticFallback, :mode => :fallback,
-                                                           :static_path_regex => %r{/public/uploads}
-                                                           :fallback_static_url => "http://myproductionsite.com/")
+                                                           :static_path_regex => %r{/system/uploads},
+                                                           :fallback_static_url => "http://myproductionsite.com/"
