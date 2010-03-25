@@ -17,7 +17,7 @@ module Rack
   #
   #     config.middleware.insert_after(::Rack::Lock,
   #                                    ::Rack::StaticFallback, :mode => :fallback,
-  #                                                            :static_path_regex => %r{/public/uploads}
+  #                                                            :static_path_regex => %r{/system/uploads},
   #                                                            :fallback_static_url => "http://myproductionsite.com/")
   #
 
