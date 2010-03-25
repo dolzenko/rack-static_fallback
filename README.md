@@ -1,4 +1,4 @@
-Bounces or redirects requests to missing static files.
+Bounces or redirects requests to missing static files. 
 Partially inspired by http://menendez.com/blog/using-django-as-pass-through-image-proxy/
 
 I.e. could be useful when you want to run the server with production database locally
