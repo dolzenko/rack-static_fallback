@@ -7,7 +7,7 @@ and have user uploaded content fetched transparently from production site.
 Options:
     :mode - [ :off,
               :bounce, # returns 404 to any request to static URL,
-              :fallback ] # any request to static URL is redirected to options[:fallback_static_url]
+              :fallback ] # any request to static path is redirected to :fallback_static_url
     :static_path_regex - Regexp which matches the path to your static files.
                          Along the lines of the Capistrano conventions defaults to `%r{/system/(audios|photos|videos)}`
     :fallback_static_url - URL of the production site
