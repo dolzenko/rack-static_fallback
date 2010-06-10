@@ -31,7 +31,11 @@ module Rack
       @mode = options[:mode] || :off
       # along the lines of the Capistrano defaults
       @static_path_regex = options[:static_path_regex] || %r{/system/(audios|photos|videos)}
-      @fallback_static_url = options[:fallback_static_url] 
+      @fallback_static_url = options[:fallback_static_url]
+
+      if @mode == :fallback && !@fallback_static_url
+        raise ArgumentError, "Rack::StaticFallback :mode => :fallback option specified without :fallback_static_url option"
+      end
     end
 
     def call(env)
@@ -49,14 +53,8 @@ module Rack
             not_found
 
           when :fallback
-            if @fallback_static_url
-              # redirect request to the production server
-              [ 302, { "Location" => ::File.join(@fallback_static_url, env["PATH_INFO"]) }, [] ]
-            else
-              ActionController::Base.logger.debug "You're using StaticFallback middleware with StaticFallback.mode set to :fallback " <<
-                      "however StaticFallback.fallback_static_url has not been set."
-              not_found
-            end
+            # redirect request to the production server
+            [ 302, { "Location" => ::File.join(@fallback_static_url, env["PATH_INFO"]) }, [] ]
         end
 
       else
